@@ -1,24 +1,24 @@
-# Api Web Portal Cosmos Pro
+Ôªø# Api Web Portal Cosmos Pro
 
 ## Sobre a API
 
-A API Web do Portal Cosmos Pro segue as diretivas da vers„o 4 do protocolo [OData](http://www.odata.org/).
+A API Web do Portal Cosmos Pro segue as diretivas da vers√£o 4 do protocolo [OData](http://www.odata.org/).
 
-## Versıes
+## Vers√µes
 
-Atualmente uma unica vers„o (V1) da API est· dÌsponivel.
+Atualmente uma unica vers√£o (V1) da API est√° d√≠sponivel.
 
 ## Ambientes
 
-#### ProduÁ„o
+#### Produ√ß√£o
 
 
 
 #### SandBox
 
-## AutenticaÁ„o
+## Autentica√ß√£o
 
-A autenticaÁ„o da API Cosmos Pro se da atravÈs de envio de token de identificaÁ„o no cabeÁalho de todas as requisiÁıes enviadas ao endereÁo da API.
+A autentica√ß√£o da API Cosmos Pro se da atrav√©s de envio de token de identifica√ß√£o no cabe√ßalho de todas as requisi√ß√µes enviadas ao endere√ßo da API.
 
 ## Rotas
 
@@ -26,47 +26,47 @@ A autenticaÁ„o da API Cosmos Pro se da atravÈs de envio de token de identificaÁ„
 
 HDSHDJSHDJKSHDJHDJKSHDJKSHDSJKhDKS
 
-### Rota para dados de Formul·rios Customizados no Portal
+### Rota para dados de Formul√°rios Customizados no Portal
 
 O Comos Data
-Para utilizaÁ„o da API para acesso a recursos do mÛdulo de Formul·rios Customizados no Portal Cosmos Pro, as requisiÁıes devem 
-ser direcionadas ao recurso TableDataRows, esse recurso Odata possui a inteligencia de efetivar as operaÁıes CRUD nos objetos customizados de acordo com os parametros
+Para utiliza√ß√£o da API para acesso a recursos do m√≥dulo de Formul√°rios Customizados no Portal Cosmos Pro, as requisi√ß√µes devem 
+ser direcionadas ao recurso TableDataRows, esse recurso Odata possui a inteligencia de efetivar as opera√ß√µes CRUD nos objetos customizados de acordo com os parametros
 fornecidos para a API.
 
 #### Post
 
-RequisiÁıes com mÈtodo post devem ser utilizados para a inserÁ„o de novos dados em uma entidade do Cosmos Pro.
+Requisi√ß√µes com m√©todo post devem ser utilizados para a inser√ß√£o de novos dados em uma entidade do Cosmos Pro.
 
-##### RequisiÁ„o
+##### Requisi√ß√£o
 
 
 - **Url** 
 
-	http:// **[ambiente]**.cosmospro.com.br/api/**[Vers„o]**/odata/custom/**[tenant]**/TableDataRows
+	http:// **[ambiente]**.cosmospro.com.br/api/**[Vers√£o]**/odata/custom/**[tenant]**/TableDataRows
 
 - **Parametros da Query:**
 
-	| Nome | Tipo | ObservaÁ„o
+	| Nome | Tipo | Observa√ß√£o
 	| ------ | ------ |
-	| TableName | string | Nome da Tabela para OperaÁ„o de InserÁ„o.
+	| TableName | string | Nome da Tabela para Opera√ß√£o de Inser√ß√£o.
 
 
-- **MÈtodo** 
+- **M√©todo** 
 
 	Post
 
-- **CabeÁalhos(Headers):**
+- **Cabe√ßalhos(Headers):**
 
-	| Nome | Valor | ObservaÁ„o
+	| Nome | Valor | Observa√ß√£o
 	| ------ | ------ |
-	| Content-Type | application/json | Tipo de Conte˙do da requisiÁ„o.
-	| Authorization | Bearer [Token] | Token de AutenticaÁ„o obtido junto ao Administrador do Inquilino Cosmos Pro
+	| Content-Type | application/json | Tipo de Conte√∫do da requisi√ß√£o.
+	| Authorization | Bearer [Token] | Token de Autentica√ß√£o obtido junto ao Administrador do Inquilino Cosmos Pro
 
 
 - **Corpo**
 
-	No corpo da requisiÁ„o deve-se enviar um objeto JSON com um nÛ para cada propriedade que se deseja inserir na entidade alvo da requisiÁ„o.O Nome do elemento JSON deve
-	corresponder ao nome da propriedade existente na entidade alvo da inserÁ„o.
+	No corpo da requisi√ß√£o deve-se enviar um objeto JSON com um n√≥ para cada propriedade que se deseja inserir na entidade alvo da requisi√ß√£o.O Nome do elemento JSON deve
+	corresponder ao nome da propriedade existente na entidade alvo da inser√ß√£o.
 
 	Exemplo:
 
@@ -84,18 +84,18 @@ RequisiÁıes com mÈtodo post devem ser utilizados para a inserÁ„o de novos dados 
 
 ##### Resposta
 
-- **CÛdigos de Estado PossÌveis**
+- **C√≥digos de Estado Poss√≠veis**
 
 
-	| HTTP Status Code | Motivo | ObservaÁ„o
+	| HTTP Status Code | Motivo | Observa√ß√£o
 	| ------ | ------ | ------ |
-	| 201 | Dados criados com Sucesso. | Tipo de Conte˙do da requisiÁ„o.
-	| 400 | RequisiÁ„o mau Formatada | O elemento **message** do objeto JSON retornado possui mais detalhes sobre a resposta.
+	| 201 | Dados criados com Sucesso. | Tipo de Conte√∫do da requisi√ß√£o.
+	| 400 | Requisi√ß√£o mau Formatada | O elemento **message** do objeto JSON retornado possui mais detalhes sobre a resposta.
 
 
 - **Corpo**
 
-	Um objeto JSON que representa os dados inseridos na entidade s„o retornados no corpo da requisiÁ„o do Tipo Post.
+	Um objeto JSON que representa os dados inseridos na entidade s√£o retornados no corpo da requisi√ß√£o do Tipo Post.
 
 	Exemplo:
 
@@ -115,44 +115,44 @@ RequisiÁıes com mÈtodo post devem ser utilizados para a inserÁ„o de novos dados 
 	```
 
 > **Nota**
-O objeto JSON retornado pela operaÁ„o POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para os dados inseridos no armazenamento de dados do Cosmos Pro.
+O objeto JSON retornado pela opera√ß√£o POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para os dados inseridos no armazenamento de dados do Cosmos Pro.
 
 
 #### Get
 
 
-API's que implementam o protocolo [OData](http://www.odata.org/) s„o [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) por natureza, e por padr„o, requisiÁıes que utilizam o mÈtodo GET s„o destinadas a operaÁ„o de leitura em recursos na API.Utilize metodo GET para receber dados de Entidades da Portal Cosmos Pro.
+API's que implementam o protocolo [OData](http://www.odata.org/) s√£o [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) por natureza, e por padr√£o, requisi√ß√µes que utilizam o m√©todo GET s√£o destinadas a opera√ß√£o de leitura em recursos na API.Utilize metodo GET para receber dados de Entidades da Portal Cosmos Pro.
 
-##### RequisiÁ„o
+##### Requisi√ß√£o
 
 
 - **Url** 
 
-	http:// **[ambiente]**.cosmospro.com.br/api/**[Vers„o]**/odata/custom/**[tenant]**/TableDataRows
+	http:// **[ambiente]**.cosmospro.com.br/api/**[Vers√£o]**/odata/custom/**[tenant]**/TableDataRows
 
 - **Parametros da Query:**
 
-	| Nome | Tipo | ObservaÁ„o
+	| Nome | Tipo | Observa√ß√£o
 	| ------ | ------ |
-	| TableName | string | Nome da Tabela para OperaÁ„o de InserÁ„o.
+	| TableName | string | Nome da Tabela para Opera√ß√£o de Inser√ß√£o.
 
 
-- **MÈtodo** 
+- **M√©todo** 
 
 	Post
 
-- **CabeÁalhos(Headers):**
+- **Cabe√ßalhos(Headers):**
 
-	| Nome | Valor | ObservaÁ„o
+	| Nome | Valor | Observa√ß√£o
 	| ------ | ------ |
-	| Content-Type | application/json | Tipo de Conte˙do da requisiÁ„o.
-	| Authorization | Bearer [Token] | Token de AutenticaÁ„o obtido junto ao Administrador do Inquilino Cosmos Pro
+	| Content-Type | application/json | Tipo de Conte√∫do da requisi√ß√£o.
+	| Authorization | Bearer [Token] | Token de Autentica√ß√£o obtido junto ao Administrador do Inquilino Cosmos Pro
 
 
 - **Corpo**
 
-	No corpo da requisiÁ„o deve-se enviar um objeto JSON com um nÛ para cada propriedade que se deseja inserir na entidade alvo da requisiÁ„o.O Nome do elemento JSON deve
-	corresponder ao nome da propriedade existente na entidade alvo da inserÁ„o.
+	No corpo da requisi√ß√£o deve-se enviar um objeto JSON com um n√≥ para cada propriedade que se deseja inserir na entidade alvo da requisi√ß√£o.O Nome do elemento JSON deve
+	corresponder ao nome da propriedade existente na entidade alvo da inser√ß√£o.
 
 	Exemplo:
 
