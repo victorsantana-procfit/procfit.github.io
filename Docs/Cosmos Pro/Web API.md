@@ -47,7 +47,7 @@ Requisições com método post devem ser utilizados para a inserção de novos d
 - **Parametros da Query:**
 
 	| Nome | Tipo | Observação
-	| ------ | ------ |
+	| ------ | ------ | ------ |
 	| TableName | string | Nome da Tabela para Operação de Inserção.
 
 
@@ -58,7 +58,7 @@ Requisições com método post devem ser utilizados para a inserção de novos d
 - **Cabeçalhos(Headers):**
 
 	| Nome | Valor | Observação
-	| ------ | ------ |
+	| ------ | ------ | ------ |
 	| Content-Type | application/json | Tipo de Conteúdo da requisição.
 	| Authorization | Bearer [Token] | Token de Autenticação obtido junto ao Administrador do Inquilino Cosmos Pro
 
@@ -133,7 +133,7 @@ API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull]
 - **Parametros da Query:**
 
 	| Nome | Tipo | Observação
-	| ------ | ------ |
+	| ------ | ------ | ------ |
 	| TableName | string | Nome da Tabela para Operação de Inserção.
 
 
@@ -144,7 +144,7 @@ API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull]
 - **Cabeçalhos(Headers):**
 
 	| Nome | Valor | Observação
-	| ------ | ------ |
+	| ------ | ------ | ------ |
 	| Content-Type | application/json | Tipo de Conteúdo da requisição.
 	| Authorization | Bearer [Token] | Token de Autenticação obtido junto ao Administrador do Inquilino Cosmos Pro
 
