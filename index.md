@@ -1,14 +1,14 @@
-# Introdução a 'Generic Cosmos Pro Web API' (V1)
+# Introdução a 'Cosmos Pro Web API' (V1)
 
 ## Sobre a API
 
 
 1. **Restfull**  
-A Cosmos Pro Web API é desenvolvida no padrão Restfull.
+A **Cosmos Pro Web API** é desenvolvida no padrão [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer).
 2. **OData**  
-A API Web do Portal Cosmos Pro segue as diretivas da versão 4 do protocolo [OData](http://www.odata.org/).
+A **Cosmos Pro Web API** é compatível com a versão 4 do protocolo [OData](http://www.odata.org/documentation/).
 3. **Propósito**  
-A 'Generic Cosmos Pro Web API' prove acesso a dados do módulo de Formulários Customizados do Portal Cosmos Pro, as requisições devem ser direcionadas ao endpoint *TableDataRows* da API, esse recurso OData possui a inteligencia de efetivar as operações CRUD nos objetos customizados do portal Cosmos Pro de acordo com os parametros fornecidos para a API.
+A **Cosmos Pro Web API** possui funcionalidades que proveem acesso a dados do módulo de Formulários Customizados do Portal Cosmos Pro, as requisições devem ser direcionadas ao endpoint *TableDataRows* da API, esse recurso OData possui a inteligencia de efetivar as operações CRUD em objetos do módulo de Formulários Customizados do portal Cosmos Pro de acordo com os parametros fornecidos para a API.
 
 
 ## Autenticação
@@ -25,25 +25,28 @@ O token é obtido através do portal Cosmos Pro Web, na seção de configuraçõ
 
 ## Tenant (inquilino)
 
-Para consumir a API de maneira adequada, na composição url será necessário a utilização do nome do *tenant* do portal Cosmos Pro.Caso não possua o nome do *tenant* fornecido no momento da aquisição de acesso ao portal Cosmos Pro, contate o administrador de sua organização.
+Para consumir a API de maneira adequada, na composição url de destino da requisição HTTP será necessário a utilização do nome do *tenant* do portal Cosmos Pro.Caso não possua o nome do *tenant* fornecido no momento da aquisição de acesso ao portal Cosmos Pro, contate o administrador de sua organização.
 
 
-## Operações Suportadas
+## Operações CRUD
 
 ####  :pushpin: Inserção
 
-API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) por natureza, e por padrão, requisições que utilizam o método POST são destinadas a operação de inserção/criação de dados na API.Utilize método POST para gravar dados de Entidades no Portal Cosmos Pro.
+Em API's do tipo [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) , requisições que utilizam o método HTTP *Post* são destinadas a operações de inserção/criação de recursos.Utilize método HTTP Post para gravar dados em Entidades no Portal Cosmos Pro.
 
 ##### :outbox_tray: Requisição
 
 
 - **Url** 
 
-	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/TableDataRows*
+	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/TableDataRows?TableName=**Produtos**
+	
+    > ### :grey_exclamation: Informação
+    > O texto **"Produtos"**, fornecido para o parametro *TableName* da query string da URL, é apenas um exemplo.
 	
 ---
 
-- **Parametros da Query:**
+- **Parametros da Query String da URL:**
 
 	| Nome | Tipo | Observação
 	| ------ | ------ | ------ |
@@ -67,15 +70,13 @@ API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull]
 
 - **Corpo**
 
-	No corpo da requisição deve-se enviar um objeto JSON com um nó para cada propriedade que se deseja inserir na entidade alvo da requisição.O Nome do elemento JSON deve
-	corresponder ao nome da propriedade existente na entidade alvo da inserção.
+	No corpo da requisição HTTP deve-se enviar um objeto JSON com uma elemento para cada propriedade (Campo) que se deseja inserir na entidade alvo da requisição.O Nome dos elementos contidos no objeto JSON devem
+	corresponder aos nomes das propriedades existentes na entidade alvo da inserção.
 
 	Exemplo:
 
 	```JSON
 	{
-		"UniqueKeyId": 0,
-		"TableId": 1,
 		"N_CampoTeste": 958787.56,
 		"A_CampoTeste": "Teste",
 		"DT_CampoTeste": "2017-07-24T18:05:59.977",
@@ -97,15 +98,16 @@ API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull]
 
 - **Corpo**
 
-	Um objeto JSON que representa os dados inseridos na entidade são retornados no corpo da requisição do Tipo Post.
+	Um objeto JSON que representa a linha inserida na entidade é retornado no corpo da resposta HTTP correspondente a requisição HTTP do Tipo Post recem transmitida.
 
 	Exemplo:
 
 	```JSON
 	{
-		"@odata.context": "http://homologacao.cosmospro.com.br/api/v1/odata/Inquilino%20Padr%C3%A3o/$metadata#TableDataRows/$entity",
+		"@odata.context": "http://homologacao.cosmospro.com.br/api/odata/v1/Inquilino%20Padr%C3%A3o/$metadata#TableDataRows/$entity",
 		"UniqueKeyId": 115,
 		"TableId": 1,
+		"TableName": "Produtos",
 		"Id": 115,
 		"N_CampoTeste": 958787.56,
 		"BI_CampoTeste": 1,
@@ -116,28 +118,114 @@ API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull]
 	```
 ---
 
-> ### @icon-info-circle Informação
-> O objeto JSON retornado pela operação POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para os dados inseridos no armazenamento de dados do Cosmos Pro.
+> ### :grey_exclamation: Informação
+> O objeto JSON retornado pela operação POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para a nova linha inserida no armazenamento de dados do Cosmos Pro.
 
 ---
 
 #### :pushpin: Alteração
 
----
+A **Cosmos Pro Web API** possibilita a atualização de dados contidos nas entidades do módulo de Formularios Customizados através de requisições que utilizem os métodos http PUT ou PATCH, utilize PATCH para atualizar apenas algumas propriedades, ou Put para sobrepor todas as propriedades da linha desejada.
 
-#### :pushpin: Sobreposição
+> ### :grey_exclamation: Informação
+> Somente uma linha é atualizada na entidade alvo a cada requisição enviada ao servidor, para atualizar mais de um registro de uma entidade ou mais entidades com apenas uma requisição HTTP utilize a operação do tipo Batch.
+
+##### :outbox_tray: Requisição
+
+
+- **Url** 
+
+	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/TableDataRows(UniqueKeyId=**100**, TableName=**'Produtos'**)*
+
+> ### :grey_exclamation: Informação
+> Os Valores **"100"** e **"Produtos"**, fornecidos respectivamente para os parametros *UniqueKeyId* e *TableName* da URL base, são apenas exemplos.
+
+- **Parametros URL Base**
+
+    | Nome | Tipo | Observação
+	| ------ | ------ | ------ |
+	| UniqueKeyId | long | Id unico do registro a ser pesquisado. 
+	| TableName | string | Nome da Tabela para pesquisa. 
+
+- **Método** 
+
+	*Put ou Patch*
+
+- **Cabeçalhos(Headers):**
+
+	| Nome | Valor | Observação
+	| ------ | ------ |------ |
+	| Content-Type | application/json | Tipo de Conteúdo da requisição.
+	| Authorization | Bearer [Token] | Token de Autenticação obtido junto ao Administrador do Inquilino Cosmos Pro
+    | Prefer | return=representation | **Opcional** , caso seja fornecido, o objeto JSON representando a linha inserida será retornada no corpo da resposta.
+
+- **Corpo**
+
+    No corpo da requisição deve-se enviar um objeto JSON com um nó para cada propriedade que se deseja atualizar na entidade alvo da requisição.O Nome do elemento JSON deve
+	corresponder ao nome da propriedade existente na entidade alvo da atualização.
+
+	Exemplo:
+
+	```JSON
+	{
+            "UniqueKeyId": 6,
+            "TableId": 1,
+            "N_CampoTeste": 958787.56,
+            "A_CampoTeste": "Teste U",
+            "DT_CampoTeste": "2017-07-24T18:05:59.977",
+            "L_CampoTeste": true,
+            "BI_CampoTeste": 6
+    }
+	```
+
+##### :outbox_tray: Resposta
+
+- **Códigos de Estado Possíveis**
+
+
+	| HTTP Status Code | Motivo | Observação
+	| ------ | ------ | ------ |
+	| 200 | Dados Atualizados com Sucesso. |
+	| 400 | Requisição não processada | O elemento **message** do objeto JSON retornado possui mais detalhes sobre a resposta.
+
+
+- **Corpo**
+
+	Um objeto JSON que representa os dados do registro logo após a atualização.
+
+	Exemplo:
+
+	```JSON
+    {
+        "@odata.context": "http://homologacao.cosmospro.com.br/api/odata/v1/Inquilino%20Padr%C3%A3o/$metadata#TableDataRows/$entity",
+        "UniqueKeyId": 6,
+        "TableId": 1,
+        "TableName": "Produtos",
+        "Id": 6,
+        "N_CampoTeste": 958787.56,
+        "BI_CampoTeste": 6,
+        "A_CampoTeste": "Teste U",
+        "DT_CampoTeste": "2017-07-24T18:05:59.977Z",
+        "L_CampoTeste": true,
+        "SecoesProdutosId": 2
+    }
+	```
+
+> ### :grey_exclamation: Informação
+> O objeto JSON com a linha atualizada somente será adicionada ao corpo da resposta http caso no momento da requisição http, o cabeçalho *Prefer* tenha sido fornecido com o valor *return=representation*.
 
 ---
 
 #### :pushpin: Leitura
 
 
-API's que implementam o protocolo [OData](http://www.odata.org/) são [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) por natureza, e por padrão, requisições que utilizam o método GET são destinadas 
-a operações de leitura em recursos na API.Utilize método GET para receber dados de Entidades da Portal Cosmos Pro.
+Utilize este método para recuperar uma coleção de dados de uma entidade passada como parametro (Query String).
+
+Para refinar a consulta, utilize na url (query string), as [funções suportadas pelo protocolo Odata](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc453752357).
 
 #### :arrow_forward: Recuperando uma Coleção de dados de uma Entidade.
 
-Utilize este método para recuperar uma coleção de dados de uma tabela passada como parametro (Query String).Para refinar a consulta, utilize na url (query string), as funções suportadas pelo protocolo Odata.
+Utilize este método para recuperar uma coleção de dados de uma entidade passada como parametro (Query String).Para refinar a consulta, utilize na url (query string), as funções suportadas pelo protocolo Odata.
 
 ##### :outbox_tray: Requisição
 
@@ -241,7 +329,7 @@ Utilize este método para recuperar uma coleção de dados de uma tabela passada
     ]
 	```
 
-> ### @icon-info-circle Informação
+> ### :grey_exclamation: Informação
 >O objeto JSON retornado pela operação POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para os dados inseridos no armazenamento de dados do Cosmos Pro.
 
 
@@ -257,7 +345,7 @@ A Cosmos Pro Web API suporta a recuperação de dados através da chave, o que f
 
 	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/TableDataRows(UniqueKeyId=**100**, TableName=**'Produtos'**)*
 
-> ### @icon-info-circle Informação
+> ### :grey_exclamation: Informação
 > Os Valores **"100"** e **"Produtos"**, fornecidos respectivamente para os parametros *UniqueKeyId* e *TableName* da URL base, são apenas exemplos.
 
 - **Parametros URL Base**
@@ -274,7 +362,7 @@ A Cosmos Pro Web API suporta a recuperação de dados através da chave, o que f
 - **Cabeçalhos(Headers):**
 
 	| Nome | Valor | Observação
-	| ------ | ------ |
+	| ------ | ------ |------ |
 	| Content-Type | application/x-www-form-urlencoded | Tipo de Conteúdo da requisição.
 	| Authorization | Bearer [Token] | Token de Autenticação obtido junto ao Administrador do Inquilino Cosmos Pro
 
@@ -314,7 +402,7 @@ A Cosmos Pro Web API suporta a recuperação de dados através da chave, o que f
 	}
 	```
 
-> ### @icon-info-circle Informação
+> ### :grey_exclamation: Informação
 > O objeto JSON retornado pela operação POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para os dados inseridos no armazenamento de dados do Cosmos Pro.
 
 ---
@@ -330,7 +418,7 @@ Requisições que utilizam o método http *Delete* servem para a exclusão de re
 
 	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/TableDataRows(UniqueKeyId=100, TableName='Produtos')*
 
-> ### @icon-info-circle Informação
+> ### :grey_exclamation: Informação
 > Os Valores **"100"** e **"Produtos"**, fornecidos respectivamente para os parametros *UniqueKeyId* e *TableName* da URL base, são apenas exemplos.
 
 - **Parametros URL Base**
@@ -357,7 +445,7 @@ Requisições que utilizam o método http *Delete* servem para a exclusão de re
 	*Vazio.*
 
 
-> ### @icon-info-circle Informação
+> ### :grey_exclamation: Informação
 > Somente uma linha é excluida da entidade alvo a cada requisição enviada ao servidor.
 
 ##### :inbox_tray: Resposta
@@ -375,3 +463,16 @@ Requisições que utilizam o método http *Delete* servem para a exclusão de re
 - **Corpo**
 
     *Vazio.*
+    
+#### :pushpin: Batch
+
+A Comos Pro Web API tambem possui suporte a operações do tipo *Batch*, operações desse tipo permitem que os consumidores da API possam "empacotar" mais de uma operação em uma unica requisição HTTP e a enviem ao serviço, e com isso recebam apenas uma unico retorno contendo todas as respostas HTTP para toas as requisições transmitidas.Desse jeito, consumidores da API podem otimizar chamadas ao serviço e melhorar a escalabilidade.
+
+
+## Consumindo Consultas Customizadas
+
+Quando a necessidade exige que o formato dos dados retornados não necessáriamente remeta a qualquer entidade do modelo de dados a Cosmos Pro Web API possui suporte ao cadastramento prévio de consultas de dados através da interface Web do Portal Cosmos Pro, essas consultas são normalmente consumidas através de Visualizadores a partir do Portal Cosmos Pro proprios para essa tarefa, mas para situações de integrações, um endpoint especifico para isso é exposto através da Cosmos Pro Web API.
+
+
+
+## Acionando Ações Customizadas
