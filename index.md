@@ -329,11 +329,6 @@ Utilize este método para recuperar uma coleção de dados de uma entidade passa
     ]
 	```
 
-> ### :grey_exclamation: Informação
->O objeto JSON retornado pela operação POST possui um elemento com nome **UniqueKeyId**, esse elemento possui o valor da chave primaria gerada para os dados inseridos no armazenamento de dados do Cosmos Pro.
-
-
-
 #### :arrow_forward: Buscando dados com a Chave Primaria (UniqueKeyId e TableName).
 
 A Cosmos Pro Web API suporta a recuperação de dados através da chave, o que fará com que a resposta da requisição retorne apenas uma linha da Entidade pesquisada.
@@ -466,13 +461,20 @@ Requisições que utilizam o método http *Delete* servem para a exclusão de re
     
 #### :pushpin: Batch
 
-A Comos Pro Web API tambem possui suporte a operações do tipo *Batch*, operações desse tipo permitem que os consumidores da API possam "empacotar" mais de uma operação em uma unica requisição HTTP e a enviem ao serviço, e com isso recebam apenas uma unico retorno contendo todas as respostas HTTP para toas as requisições transmitidas.Desse jeito, consumidores da API podem otimizar chamadas ao serviço e melhorar a escalabilidade.
+A Comos Pro Web API tambem possui suporte a operações do tipo *Batch*, operações desse tipo permitem que os consumidores da API possam "empacotar" mais de uma operação em uma unica requisição HTTP e a enviem ao serviço, e com isso recebam apenas uma unico retorno contendo todas as respostas HTTP para todas as requisições transmitidas.Desse jeito, consumidores da API podem otimizar chamadas ao serviço e melhorar a escalabilidade.
 
 
 ## Consumindo Consultas Customizadas
 
-Quando a necessidade exige que o formato dos dados retornados não necessáriamente remeta a qualquer entidade do modelo de dados a Cosmos Pro Web API possui suporte ao cadastramento prévio de consultas de dados através da interface Web do Portal Cosmos Pro, essas consultas são normalmente consumidas através de Visualizadores a partir do Portal Cosmos Pro proprios para essa tarefa, mas para situações de integrações, um endpoint especifico para isso é exposto através da Cosmos Pro Web API.
+Quando a necessidade exige que o formato dos dados retornados não necessáriamente remeta a qualquer entidade do modelo de dados do Portal cosmos Pro, utilize o endpoint Odata *CustomViews* da Cosmos Pro Web API , esse endpoint possui capacidade de execução de Consultas Customizadas previamente desenvolvidas através do Portal Cosmos Pro.
 
+#### :arrow_forward: Acionando a Execução da Consulta.
+
+Para utilizar esse recurso, o Cliente Consumidor da API deve efetuar ao menos duas requisições HTTP com destino ao recurso "CustomViews" da API, sendo que a primeira requisição tem proposito apenas de disparo da execução da consulta por parte do servidor da API, um identificador unico da execução será retornado para o consumidor como resposta HTTP.
+
+#### :arrow_forward: Consumindo os dados da Consulta.
+
+Após o acionamento da Execução da Consulta, o consumidor da API deve executar chamda(s) HTTP contra o servidor afim de receber os dados processados pela execução da consulta, para isso a Cosmos Pro Web API disponibiliza os dados resultantes da execução da consulta como um endpoint Odata, com suporte a paginação, ordenação, filtro e etc.
 
 
 ## Acionando Ações Customizadas
