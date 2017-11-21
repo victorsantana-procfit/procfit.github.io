@@ -617,3 +617,68 @@ Após o acionamento da Execução da Consulta, o consumidor da API deve executar
 	
 
 ## Acionando Ações Customizadas
+
+Como dito anteriormente, Consultas Costumizadas não oferecem suporte a efetuar requisões que alterem dados do Cosmos Pro, essa limitação existe para que os recursos como Armazenamento de Cache do Resultado da Consulta, Paginação, Filtros e etc sejam possiveis.Porem em certas ocasiões, as operações CRUD da Cosmos Pro Web API (que são baseadas no Modelo de Dados) não atendem a necessidade da integração.
+
+Utilize Ações Customizadas para acionar tarefas previamente desenvolvidas através do Portal Web do Cosmos Pro.
+
+##### :outbox_tray: Requisição
+
+
+- **Url** 
+
+	http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/CustomViews('ProdutosEmPromocao')/ReceiveData(ExecutionId=97ae1270-115d-46ca-a76e-ec752971ad26)
+	
+> ### :grey_exclamation: Informação
+> O método ReceiveData prove suporte as covenções de url do protocolo OData.
+
+- **Método** 
+
+	Get
+
+- **Cabeçalhos(Headers):**
+
+	| Nome | Valor | Observação
+	| ------ | ------ | ------ |
+	| Content-Type | application/x-www-form-urlencoded | .
+	| Authorization | Bearer [Token] | Token de Autenticação obtido junto ao Administrador do Inquilino Cosmos Pro
+
+
+- **Corpo**
+
+	*Vazio.*
+
+##### :inbox_tray: Resposta
+
+- **Códigos de Estado Possíveis**
+
+
+	| HTTP Status Code | Motivo | Observação
+	| ------ | ------ | ------ |
+	| 200 | Dados Retornados com Sucesso. |
+	| 400 | Requisição não Processada | O elemento **message** do objeto JSON retornado possui mais detalhes sobre a resposta.
+
+
+- **Corpo**
+
+	Um objeto JSON que representa um *array* com a coleção de registros da CustomView é retornado no corpo da requisição.
+
+	Exemplo:
+
+	```JSON
+    {
+        "@odata.context": "http://homologacao.cosmospro.com.br/api/odata/v1/Inquilino%20Padr%C3%A3o/$metadata#CustomViewDataRows",
+        "value": [
+            {
+                "InResultId": 1,
+                "CampoTeste1": "ValorTeste1",
+                "CampoTeste2": "ValorTeste2"
+            },
+            {
+                "InResultId": 2,
+                "CampoTeste1": "ValorTeste12333",
+                "CampoTeste2": "ValorTeste24545454"
+            }
+        ]
+    }
+	```
