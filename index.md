@@ -466,7 +466,7 @@ A Comos Pro Web API tambem possui suporte a operações do tipo *Batch*, operaç
 
 ## Consumindo Consultas Customizadas
 
-Quando a necessidade exige que o formato dos dados retornados pela consulta não necessáriamente remeta a qualquer entidade do modelo de dados do Portal Cosmos Pro, utilize o endpoint Odata *CustomViews* da Cosmos Pro Web API, esse endpoint possui capacidade de execução de Consultas Customizadas previamente desenvolvidas através do portal Web do Portal Cosmos Pro.
+Quando a necessidade exige que o formato dos dados retornados pela consulta não necessáriamente remeta a qualquer entidade do modelo de dados do Portal Cosmos Pro, porem ainda é necessário a utilização de suporte a Paginação e ordenação dos resultados da consulta, utilize o endpoint Odata *CustomViews* da Cosmos Pro Web API, esse endpoint possui capacidade de execução de Consultas Customizadas previamente desenvolvidas através do portal Web do Portal Cosmos Pro.
 
 Não é possível alterar dados através da execução de Comsultas Customizadas do Portal Cosmos Pro.
 
@@ -549,10 +549,88 @@ Para utilizar esse recurso, o Cliente Consumidor da API deve efetuar ao menos du
 	```
 
 
-#### :arrow_forward: Consumindo os dados da Consulta previamente Executada.
+#### :arrow_forward: Executando e Recebendo os dados em apenas uma Requisição.
 
-Após o acionamento da Execução da Consulta, o consumidor da API deve executar chamda(s) HTTP contra o servidor afim de receber os dados processados pela execução da consulta, para isso a Cosmos Pro Web API disponibiliza os dados resultantes da execução da consulta como um endpoint Odata, com suporte a paginação, ordenação, filtro e etc.
+Com esse recurso é possível com apenas uma requisição, que o consumidor da API execute e receba os dados da Consulta Customizada da Cosmos Pro Web API.
 
+##### :outbox_tray: Requisição
+
+
+- **Url** 
+
+	http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/CustomViews('ProdutosEmPromocao')/ExecuteAndReceiveData()
+	
+> ### :grey_exclamation: Informação
+> O método ExecuteAndReceiveData prove suporte as covenções de url do protocolo OData.
+
+- **Método** 
+
+	Post
+
+- **Cabeçalhos(Headers):**
+
+	| Nome | Valor | Observação
+	| ------ | ------ | ------ |
+	| Content-Type | application/json | .
+	| Authorization | Bearer [Token] | Token de Autenticação obtido junto ao Administrador do Inquilino Cosmos Pro
+
+
+- **Corpo**
+
+	No corpo da requisição HTTP deve-se enviar um objeto JSON com uma elemento para cada parametro necessário para execução da CustomView.
+
+	Exemplo:
+
+	```JSON
+	{
+        "Parameters":{
+	    "DataInicial":"2017-07-24T00:00:00.000",
+	    "DataFinal":"2017-07-25T00:00:00.000"
+        }
+    }
+	```
+
+##### :inbox_tray: Resposta
+
+- **Códigos de Estado Possíveis**
+
+
+	| HTTP Status Code | Motivo | Observação
+	| ------ | ------ | ------ |
+	| 200 | Dados Retornados com Sucesso. |
+	| 400 | Requisição não Processada | O elemento **message** do objeto JSON retornado possui mais detalhes sobre a resposta.
+
+
+- **Corpo**
+
+	Um objeto JSON que representa um *array* com a coleção de registros da CustomView é retornado no corpo da requisição.
+
+	Exemplo:
+
+	```JSON
+    {
+    "@odata.context": "http://homologacao.cosmospro.com.br/api/odata/v1/dictionary/Inquilino%20Padr%C3%A3o/Produ%C3%A7%C3%A3o/$metadata#CustomViewDataRows(name,Var,object_id)",
+    "@odata.count": 10,
+    "value": [
+        {
+            "name": "CustomActionAllowedRequestContentTypes",
+            "Var": "valor vari",
+            "object_id": 565577053
+        },
+        {
+            "name": "CustomActionAllowedResponseContentTypes",
+            "Var": "valor vari",
+            "object_id": 757577737
+        },
+        {
+            "name": "CustomActionContentTypes",
+            "Var": "valor vari",
+            "object_id": 629577281
+        }
+    ]
+}
+	```
+	
 
 ##### :outbox_tray: Requisição
 
