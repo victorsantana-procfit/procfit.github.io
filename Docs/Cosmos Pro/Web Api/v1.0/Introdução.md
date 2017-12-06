@@ -20,3 +20,9 @@ A **Cosmos Pro Web API** possui funcionalidades que proveem acesso a dados do m�
 
 Para consumir a API de maneira adequada, na composição url de destino da requisição HTTP será necessário a utilização do nome do *tenant* do portal Cosmos Pro.Caso não possua o nome do *tenant* fornecido no momento da aquisição de acesso ao portal Cosmos Pro, contate o administrador de sua organização.
 
+## Saiba mais ...
+
+- [Autenticação.](Autenticação.md)
+- [Operações Crud em Objetos Dinâmicos.](CRUD Objetos Dinamicos.md)
+- [Consumento Consultas Customizadas.](CustomViews.md)
+- [Consumento Ações Customizadas.](CustomActions.md)
