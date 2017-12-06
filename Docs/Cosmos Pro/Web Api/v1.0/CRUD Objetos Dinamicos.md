@@ -1,17 +1,17 @@
 ﻿## Operações CRUD em Objetos Dinamicos
 
-A Cosmos Pro Web API permite a manipulação de dados de objetos criados através do módulo de formularios customizados que são desenvolvidos através do Portal Web do Cosmos Pro.
+A Cosmos Pro Web API permite a manipulação de dados de objetos criados através do módulo de formulários customizados que são desenvolvidos através do Portal Web do Cosmos Pro.
 
 ####  :pushpin: Inserção
 
-Em API's do tipo [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) , requisições que utilizam o método HTTP *Post* são destinadas a operações de inserção/criação de recursos.Utilize método HTTP Post para gravar dados em Entidades no Portal Cosmos Pro.
+Em API's do tipo [RestFull](https://en.wikipedia.org/wiki/Representational_state_transfer) , requisições que utilizam o método HTTP *Post* são destinadas a operações de inserção/criação de recursos. Utilize método HTTP Post para gravar dados em Entidades no Portal Cosmos Pro.
 
 ##### :outbox_tray: Requisição
 
 
 - **Url** 
 
-	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/**[tenant]**/TableDataRows?TableName=**Produtos**
+	*http:// **[ambiente]**.cosmospro.com.br/api/odata/v1/TableDataRows?TableName=**Produtos**
 	
     > ### :grey_exclamation: Informação
     > O texto **"Produtos"**, fornecido para o parametro *TableName* da query string da URL, é apenas um exemplo.
@@ -42,7 +42,7 @@ Em API's do tipo [RestFull](https://en.wikipedia.org/wiki/Representational_state
 
 - **Corpo**
 
-	No corpo da requisição HTTP deve-se enviar um objeto JSON com uma elemento para cada propriedade (Campo) que se deseja inserir na entidade alvo da requisição.O Nome dos elementos contidos no objeto JSON devem
+	No corpo da requisição HTTP deve-se enviar um objeto JSON com uma elemento para cada propriedade (Campo) que se deseja inserir na entidade alvo da requisição. O Nome dos elementos contidos no objeto JSON devem
 	corresponder aos nomes das propriedades existentes na entidade alvo da inserção.
 
 	Exemplo:
@@ -97,7 +97,7 @@ Em API's do tipo [RestFull](https://en.wikipedia.org/wiki/Representational_state
 
 #### :pushpin: Alteração
 
-A **Cosmos Pro Web API** possibilita a atualização de dados contidos nas entidades do módulo de Formularios Customizados através de requisições que utilizem os métodos http PUT ou PATCH, utilize PATCH para atualizar apenas algumas propriedades, ou Put para sobrepor todas as propriedades da linha desejada.
+A **Cosmos Pro Web API** possibilita a atualização de dados contidos nas entidades do módulo de Formulários Customizados através de requisições que utilizem os métodos http PUT ou PATCH, utilize PATCH para atualizar apenas algumas propriedades, ou Put para sobrepor todas as propriedades da linha desejada.
 
 > ### :grey_exclamation: Informação
 > Somente uma linha é atualizada na entidade alvo a cada requisição enviada ao servidor, para atualizar mais de um registro de uma entidade ou mais entidades com apenas uma requisição HTTP utilize a operação do tipo Batch.
